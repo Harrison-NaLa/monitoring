@@ -1,8 +1,8 @@
-import {Geist, Geist_Mono} from 'next/font/google';
+import { Geist, Geist_Mono } from 'next/font/google';
 import type { Metadata } from "next";
 import '@radix-ui/themes/styles.css';
-import {Theme} from '@radix-ui/themes';
-import {ThemeProvider} from 'next-themes';
+import { Theme } from '@radix-ui/themes';
+import { ThemeProvider } from 'next-themes';
 import './globals.css';
 
 const geistSans = Geist({
@@ -21,26 +21,26 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
         <html lang="en">
-        <head>
-            <title>Spotify</title>
-            <meta
-                name="format-detection"
-                content="telephone=no, date=no, email=no, address=no"
-            />
-        </head>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class">
-            <Theme>
-                {children}
-            </Theme>
-        </ThemeProvider>
-        </body>
+            <head>
+                <title>Spotify</title>
+                <meta
+                    name="format-detection"
+                    content="telephone=no, date=no, email=no, address=no"
+                />
+            </head>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+                <ThemeProvider attribute="class" defaultTheme='dark'>
+                    <Theme>
+                        {children}
+                    </Theme>
+                </ThemeProvider>
+            </body>
         </html>
     );
 }
