@@ -1,0 +1,48 @@
+.login_layout {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgb(56 56 56) 0%, rgb(0, 0, 0) 100%);
+    flex: 3 1 0;
+    display: flex;
+    justify-content: center;
+    padding: 32px;
+}
+
+.login_layout_card {
+    max-width: 720px;
+    background-color: #121212;
+    overflow-y: auto;
+}
+
+.icon_alt_btn {
+    height: fit-content;
+    padding: 12px 20px !important;
+    border-radius: 1.5rem !important;
+    min-width: 24rem;
+    width: 24rem;
+}
+.divisor {
+    width: 60%;
+    height: 1px;
+    border-top: 1px solid rgb(41, 41, 41)
+}
+
+.logo_bg_google {
+    width: 18px;
+    height: 18px;
+    background: url("https://accounts.scdn.co/sso/images/new-google-icon.72fd940a229bc94cf9484a3320b3dccb.svg") no-repeat;
+    background-size: cover;
+}
+
+.logo_bg_facebook {
+    width: 18px;
+    height: 18px;
+    background: url("https://accounts.scdn.co/sso/images/new-facebook-icon.eae8e1b6256f7ccf01cf81913254e70b.svg") no-repeat;
+    background-size: cover;
+}
+.logo_bg_apple {
+    width: 18px;
+    height: 18px;
+    background: url("https://accounts.scdn.co/sso/images/new-apple-icon.e356139ea90852da2e60f1ff738f3cbb.svg") no-repeat;
+    background-size: cover;
+}
