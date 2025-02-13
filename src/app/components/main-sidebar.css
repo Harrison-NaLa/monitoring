@@ -1,0 +1,21 @@
+.btn_add_list {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px var(--gray-1) solid;
+}
+
+.sidebar_header {
+    border-bottom: 1px solid hsla(0,0%,100%,.1);
+}
+
+.btn_expand_panel {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px var(--gray-1) solid;
+
+    &.size-4 {
+        transition: all .3s;
+    }
+}

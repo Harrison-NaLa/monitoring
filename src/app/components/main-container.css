@@ -1,0 +1,27 @@
+.main_container_body {
+    color: var(--gray-1);
+    background: rgb(48, 42, 22);
+    background: linear-gradient(180deg, rgb(25, 22, 13) 5%, rgba(18, 18, 18, 1) 94%);
+    border-radius: 4px;
+}
+
+.main_sidebar {
+    overflow: hidden;
+    transition: all .3s;
+    color: var(--gray-1);
+    background: rgb(48, 42, 22);
+    background: linear-gradient(180deg, rgb(25, 22, 13) 5%, rgba(18, 18, 18, 1) 94%);
+    border-radius: 4px;
+
+    &.expanded {
+        width: 22%
+    }
+
+    &.extra-expanded {
+        width: 42%;
+
+        & .btn_expand_panel {
+            transform: rotate(180deg);
+        }
+    }
+}

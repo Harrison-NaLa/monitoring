@@ -1,12 +1,11 @@
-'use client';
-import {Box, Button, Flex, IconButton, Link, TextField} from '@radix-ui/themes';
+import {Button, Flex, IconButton, Link, TextField} from '@radix-ui/themes';
 import React, {useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
 import {AvatarIcon, EyeNoneIcon, EyeOpenIcon} from '@radix-ui/react-icons';
-import {Form, Label} from 'radix-ui';
-import {textFieldRootPropDefs} from '@radix-ui/themes/components/text-field.props';
+import {Label} from 'radix-ui';
+import {login} from '@/actions/_auth';
 
 const formSchema = z.object({
     username: z.string().email().min(2, {
@@ -19,14 +18,15 @@ const formSchema = z.object({
 
 export type loginFormModel = z.infer<typeof formSchema>;
 
-export default function LoginForm({handleSubmit}: {handleSubmit?: (data: loginFormModel) => void}) {
+export default function LoginForm() {
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             username: '',
             password: '',
         },
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     const [showPassword, setShowPassword] = useState(false);
@@ -42,9 +42,10 @@ export default function LoginForm({handleSubmit}: {handleSubmit?: (data: loginFo
         return hasFieldError(control) ? 'red' : 'gray';
     };
 
-    const onSubmit = (data: loginFormModel) => {
-        if (handleSubmit) handleSubmit(data);
-    }
+    const onSubmit = async (data: loginFormModel) => {
+        await login();
+        console.log(data);
+    };
 
     return (
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 mt-4">
@@ -53,7 +54,7 @@ export default function LoginForm({handleSubmit}: {handleSubmit?: (data: loginFo
                     name="username"
                     control={form.control}
                     render={({field}) => (
-                        <>
+                        <div>
                             <Label.Root htmlFor="username">
                                 Email o nombre de usuario
                             </Label.Root>
@@ -63,7 +64,7 @@ export default function LoginForm({handleSubmit}: {handleSubmit?: (data: loginFo
                                     <AvatarIcon height="16" width="16"/>
                                 </TextField.Slot>
                             </TextField.Root>
-                        </>
+                        </div>
 
                     )}
                 />
@@ -71,7 +72,7 @@ export default function LoginForm({handleSubmit}: {handleSubmit?: (data: loginFo
                     name="password"
                     control={form.control}
                     render={({field}) => (
-                        <>
+                        <div>
                             <Label.Root htmlFor="password">
                                 Contraseña
                             </Label.Root>
@@ -85,11 +86,13 @@ export default function LoginForm({handleSubmit}: {handleSubmit?: (data: loginFo
                                     </IconButton>
                                 </TextField.Slot>
                             </TextField.Root>
-                        </>
+                        </div>
 
                     )}
                 />
-                <Button type="submit" size="3" radius="full" color="green" className="rounded-2xl standard_width">
+                <Button type="submit" size="3" radius="full" color="green"
+                        className="rounded-2xl standard_width font-bold"
+                        disabled={!form.formState.isValid}>
                     Iniciar sesión
                 </Button>
                 <Link href="#" className="standard_width mb-5" color="gray">¿Has olvidado tu contraseña?</Link>

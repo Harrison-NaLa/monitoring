@@ -1,4 +1,9 @@
-@tailwind base;
+@import "tailwindcss/base";
+@import "@radix-ui/themes/styles.css";
+@import "@radix-ui/themes/layout/tokens.css";
+@import "@radix-ui/themes/layout/components.css";
+@import "@radix-ui/themes/layout/utilities.css";
+
 @tailwind components;
 @tailwind utilities;
 
@@ -37,6 +42,24 @@ button.rt-BaseButton {
         --chart-4: 43 74% 66%;
         --chart-5: 27 87% 67%;
         --radius: 0.5rem;
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 24px;
+        --space-6: 32px;
+        --space-7: 40px;
+        --space-8: 48px;
+        --space-9: 64px;
+        --radius-factor: 1.5;
+        --scaling: 1;
+        --radius-1: calc(3px * var(--scaling) * var(--radius-factor));
+        --radius-2: calc(4px * var(--scaling) * var(--radius-factor));
+        --radius-3: calc(6px * var(--scaling) * var(--radius-factor));
+        --radius-4: calc(8px * var(--scaling) * var(--radius-factor));
+        --radius-5: calc(12px * var(--scaling) * var(--radius-factor));
+        --radius-6: calc(16px * var(--scaling) * var(--radius-factor));
+
     }
 
     .dark {
@@ -75,4 +98,31 @@ button.rt-BaseButton {
     body {
         @apply bg-background text-foreground;
     }
+}
+
+.rt-BaseButton:not([disabled]):where(.rt-variant-solid) {
+    background-color: #1ed760;
+    color: var(--gray-1);
+}
+
+.rt-BaseButton:not([disabled]):where(.rt-variant-solid).color_gray {
+    background-color: var(--gray-12);
+    color: var(--gray-1);
+}
+
+.layout_container {
+}
+
+.layout_inner {
+    /*background: rgb(48,42,22);
+    background: linear-gradient(180deg, rgb(25, 22, 13) 5%, rgba(18,18,18,1) 94%);*/
+}
+
+.tooltipContent {
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 15px;
+    line-height: 1;
+    color: var(--gray-11);
+    background-color: white;
 }

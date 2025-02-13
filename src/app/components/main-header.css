@@ -1,0 +1,16 @@
+.header_home_btn {
+    background-color: var(--gray-12) !important;
+    color: var(--gray-1) !important;
+}
+
+.header_btn {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.header_premium_btn {
+    background-color: var(--gray-2) !important;
+    color: var(--gray-12) !important;
+    font-weight: bold;
+}

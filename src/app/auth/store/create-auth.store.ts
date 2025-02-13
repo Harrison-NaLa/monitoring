@@ -1,9 +1,11 @@
-'use client'
 
+/*
+'use client'
 import { type ReactNode, createContext, useRef, useContext } from 'react'
 import { useStore } from 'zustand'
 
 import {type AuthStoreType, createAuthStore, defaultInitState} from './auth.store';
+
 
 export type AuthStoreApi = ReturnType<typeof createAuthStore>
 
@@ -41,3 +43,4 @@ export const useAuthStore = <T,>(
 
     return useStore(authStoreContext, selector)
 }
+*/

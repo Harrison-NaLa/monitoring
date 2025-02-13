@@ -1,29 +1,48 @@
-import {NEXT_PUBLIC_ACCOUNT_API_URL, NEXT_PUBLIC_CLIENT_ID, NEXT_PUBLIC_CLIENT_SECRET} from '../../../env.config';
+import {env} from '@/config/env';
 
-
-export const httpClient = <T extends BodyInit, R = unknown>(
+export const httpClient = <R>(
     endpoint: string,
-    payload?: T,
-    method = 'POST',
-    headers?: HeadersInit
-    ): Promise<R> => {
-    const api = String(NEXT_PUBLIC_ACCOUNT_API_URL);
+    options?: RequestInit,
+    headers?: HeadersInit,
+): Promise<R> => {
+    const api = String(env.NEXT_PUBLIC_ACCOUNT_API_URL);
     console.log(api);
     return fetch(api + endpoint, {
-        method,
-        body: payload ?? null,
-        headers
-    }).then(response => response.json())
-}
+        ...options,
+        headers,
+    }).then(response => response.json());
+};
+
+export const fetchPosts = async <T>(endpoint: string, options?: RequestInit, headers?: HeadersInit): Promise<T> => {
+    const response = await fetch(endpoint, {
+        ...options,
+        headers,
+    });
+    return await response.json();
+};
+
+export const fetchApiPosts = async <T>(endpoint: string, options?: RequestInit, headers?: Headers): Promise<T> => {
+    try {
+        const response = await fetch(endpoint, {
+            ...options,
+            headers,
+        });
+        console.log(response);
+        return await response.json();
+    } catch (error) {
+        console.log(error);
+        return <T>{};
+    }
+};
 
 
-export const requestPost = <T extends BodyInit>(
+export const requestPost = <T extends object>(
     endpoint: string,
-    payload: T,
+    options?: RequestInit,
     headers: HeadersInit = new Headers({
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + (Buffer.from(NEXT_PUBLIC_CLIENT_ID + ':' + NEXT_PUBLIC_CLIENT_SECRET).toString('base64')),
-    })
-    ) => {
-    return httpClient(endpoint, payload, 'POST', headers);
-}
+        'Authorization': 'Basic ' + (Buffer.from(env.AUTH_SPOTIFY_ID + ':' + env.AUTH_SPOTIFY_SECRET).toString('base64')),
+    }),
+) => {
+    return httpClient<T>(endpoint, options, headers);
+};

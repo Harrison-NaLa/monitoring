@@ -1,34 +1,23 @@
-import { createStore } from 'zustand/vanilla'
-
-export type AuthStatePropType = {
-    token: string;
-    tokenData: object | null;
-    tokenExpiration: number | null;
-    isAuthenticated: boolean;
-}
-
-export type AuthStoreActions = {
-    decrementCount: () => void;
-    incrementCount: () => void;
-    setToken: (token: string) => void;
-}
-
-export type AuthStoreType = AuthStatePropType & AuthStoreActions
+import {create} from 'zustand';
+import {persist} from 'zustand/middleware';
+import {AuthGrantAccess, AuthStatePropType, AuthStoreType} from '@/app/auth/auth.models';
 
 export const defaultInitState: AuthStatePropType = {
     token: '',
     tokenData: null,
     tokenExpiration: null,
     isAuthenticated: false,
-}
+};
 
-export const createAuthStore = (
-    initState: AuthStatePropType = defaultInitState,
-) => {
-    return createStore<AuthStoreType>()((set) => ({
-        ...initState,
-        decrementCount: () => set((state) => ({ token: state.token + '1' })),
-        incrementCount: () => set((state) => ({ token: state.token + '1' })),
-        setToken: () => set((state) => ({ token: state.token })),
-    }))
-}
+const AuthStore = create<AuthStoreType>()(
+    persist((set) => ({
+            ...defaultInitState,
+            setToken: (token: string) => set(() => ({token})),
+            // grantAccess: (param: AuthGrantAccess) => set(() => ({token: param.token, isAuthenticated: param.isAuthenticated})),
+            grantAccess: (param: AuthGrantAccess) => set(() => ({ token: param.token, isAuthenticated: param.isAuthenticated}))
+        }),
+        {name: 'auth-store'},
+    ),
+);
+
+export default AuthStore;

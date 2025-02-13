@@ -1,0 +1,9 @@
+export const env = {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || "",
+    NEXT_PUBLIC_ACCOUNT_API_URL: process.env.NEXT_PUBLIC_ACCOUNT_API_URL || "",
+    AUTH_SPOTIFY_ID: process.env.AUTH_SPOTIFY_ID || "",
+    AUTH_SPOTIFY_SECRET: process.env.AUTH_SPOTIFY_SECRET || "",
+    NEXT_PUBLIC_USER_NAME: process.env.NEXT_PUBLIC_USER_NAME || "",
+    NEXT_PUBLIC_USER_LASTNAME: process.env.NEXT_PUBLIC_USER_LASTNAME || "",
+    NEXT_PUBLIC_USER_MAIl: process.env.NEXT_PUBLIC_USER_MAIl || "",
+}
