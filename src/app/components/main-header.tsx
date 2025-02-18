@@ -8,13 +8,8 @@ import BtnLogout from '@/app/components/buttons/btn-logout';
 import BtnLogin from '@/app/components/buttons/btn-login';
 import {auth} from '@/auth';
 
-export interface MainHeaderProps {
-    isPremium: boolean;
-}
-
 const MainHeader = async () => {
     const session = await auth();
-    console.log({session});
 
     const validUserMenu = () => {
         if (session && session.user) return (<UserMenu fallback={(session.user.name ?? ' ')[0]} image={session.user.image ?? ''} tooltip={session.user.name ?? ''} data={session?.user}/>);
@@ -36,9 +31,6 @@ const MainHeader = async () => {
                 </Button>
             </section>
             <Flex gapX="4" align="center">
-                {/*{session && (<Button variant="outline" size="3" radius="full" highContrast className="header_premium_btn">
-                    Explorar premium
-                </Button>)}*/}
                 {session && (
                     <>
                         <Button variant="ghost" className="header_btn p-0 grid" color="grass">

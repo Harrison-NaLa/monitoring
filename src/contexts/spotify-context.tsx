@@ -1,16 +1,18 @@
 'use client';
 
-import {SpotifyResponseApi, TopArtistsInterface, TopTracksInterface} from '../../types';
+import {SpotifyAlbumItem, SpotifyResponseApi, TopArtistsInterface, TopTracksInterface} from '../../types';
 import {createContext, useCallback, useEffect, useMemo, useState} from 'react';
 import {useSession} from 'next-auth/react';
 import {getUserAccessToken, logout} from '@/actions/_auth';
-import {getCurrentUserTopArtists, getCurrentUserTopTracks} from '@/actions/_spotify';
+import {getCurrentUserTopAlbums, getCurrentUserTopArtists, getCurrentUserTopTracks} from '@/actions/_spotify';
 
 export type SpotifyContextDataInterface = SpotifyResponseApi | TopArtistsInterface | object;
 
 interface SpotifyContextInterface {
     datos: SpotifyContextDataInterface;
     setDatos: React.Dispatch<React.SetStateAction<TopTracksInterface | TopArtistsInterface>>;
+    albumsData: SpotifyResponseApi<SpotifyAlbumItem[]> | object;
+    setAlbumsData: React.Dispatch<React.SetStateAction<SpotifyAlbumItem | object>>;
     filterType: 'tracks' | 'artists';
     setFilterType: React.Dispatch<React.SetStateAction<'tracks' | 'artists'>>;
     loading: boolean;
@@ -22,6 +24,9 @@ interface SpotifyContextInterface {
 export const SpotifyContext = createContext<SpotifyContextInterface>({
     datos: {},
     setDatos: () => {
+    },
+    albumsData: {},
+    setAlbumsData: () => {
     },
     filterType: 'tracks',
     setFilterType: () => {
@@ -40,6 +45,7 @@ export const SpotifyContextProvider = ({children}: { children: React.ReactNode }
     const [loading, setLoading] = useState(false);
     const [dateRange, setDateRange] = useState<'short_term' | 'medium_term' | 'long_term'>('short_term');
     const {status} = useSession();
+    const [albumsData, setAlbumsData] = useState<SpotifyAlbumItem | object>({});
 
     const fetchDatos = useCallback(async () => {
         if (status !== 'authenticated') return;
@@ -61,6 +67,14 @@ export const SpotifyContextProvider = ({children}: { children: React.ReactNode }
                 } else {
                     console.error('Invalid data structure', data);
                     setDatos({});
+                }
+
+                const albumsData = await getCurrentUserTopAlbums(accessToken as string);
+                if (albumsData && 'items' in albumsData) {
+                    setAlbumsData(albumsData);
+                } else {
+                    console.error('Invalid data structure', data);
+                    setAlbumsData({});
                 }
             } catch (fetchError) {
                 console.log({fetchError});
@@ -87,6 +101,8 @@ export const SpotifyContextProvider = ({children}: { children: React.ReactNode }
         setLoading,
         dateRange,
         setDateRange,
+        albumsData,
+        setAlbumsData,
     }), [datos, filterType, loading, dateRange]);
 
 

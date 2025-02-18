@@ -22,7 +22,19 @@ export const getSpotifyToken = async (): Promise<AccessTokenResponseInterface> =
 
 export const getCurrentUserTopTracks = async (access_token: string) => {
     console.log({SPOTIFY_ENDPOINT});
-    const endpoint = `${SPOTIFY_ENDPOINT}/me/tracks?offset=0&limit=8`;
+    const endpoint = `${SPOTIFY_ENDPOINT}/me/tracks?offset=0&limit=12`;
+    const response = await axios.get(`${endpoint}`, {
+        headers: {
+            "Authorization": `Bearer ${access_token}`
+        }
+    })
+
+    return response.data
+}
+
+export const getCurrentUserTopAlbums = async (access_token: string) => {
+    console.log({SPOTIFY_ENDPOINT});
+    const endpoint = `${SPOTIFY_ENDPOINT}/me/albums?offset=0&limit=12`;
     console.log({endpoint});
     const response = await axios.get(`${endpoint}`, {
         headers: {
