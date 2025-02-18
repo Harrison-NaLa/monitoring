@@ -1,5 +1,4 @@
 import {fetchApiPosts, fetchPosts} from '@/app/core/http-client';
-import AuthStore from '@/app/auth/store/auth.store';
 import {env} from '@/env';
 import {ConfigUrls} from '@/config/urls';
 
@@ -23,7 +22,6 @@ export const doAutenticate = <T>() => {
 };
 
 export const getUserProfile = <T>() => {
-    const accessToken = AuthStore.getState().token;
     const headers: HeadersInit = new Headers();
     headers.set('Content-Type', 'application/json');
     //headers.set('Authorization', `Bearer ${accessToken}`);

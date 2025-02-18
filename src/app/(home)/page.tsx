@@ -1,7 +1,5 @@
 import React from 'react';
 import HomeContainer from '@/app/(home)/components_/home-container';
-import {Toast} from 'radix-ui';
-import useToastStore from '@/app/core/snack-bar.store';
 
 const Home = () => {
     return (

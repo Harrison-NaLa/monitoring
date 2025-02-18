@@ -5,7 +5,6 @@ import NoActiveSession from '@/app/components/no-active-session';
 import MusicControlList from '@/app/tracks/music-control-list';
 import React from 'react';
 import {Toast} from 'radix-ui';
-import useToastStore from '@/app/core/snack-bar.store';
 
 const HomeContainer = async () => {
     return (

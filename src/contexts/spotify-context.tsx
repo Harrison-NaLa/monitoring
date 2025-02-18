@@ -103,7 +103,7 @@ export const SpotifyContextProvider = ({children}: { children: React.ReactNode }
         setDateRange,
         albumsData,
         setAlbumsData,
-    }), [datos, filterType, loading, dateRange]);
+    }), [datos, filterType, loading, dateRange, albumsData]);
 
 
     return (

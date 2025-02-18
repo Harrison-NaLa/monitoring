@@ -1,58 +1,11 @@
 'use client'
-import React, {useEffect, useState} from 'react';
-import LoginForm, {loginFormModel} from '@/app/auth/login/present/login-form';
+import React from 'react';
+import LoginForm from '@/app/auth/login/present/login-form';
 import {Button, Flex} from '@radix-ui/themes';
 import Image from 'next/image';
 import './login-layout.css';
-import AuthStore from '@/app/auth/store/auth.store';
-import {AuthenticationResponse} from '@/app/auth/auth.models';
-import {doAutenticate} from '@/app/core/services/auth/auth.request';
-import {useRouter} from 'next/navigation';
-import {auth, signIn} from '@/auth';
-import { login } from '@/actions/_auth';
-import {Session} from 'next-auth';
 
 export default function LoginLayout() {
-    const {grantAccess} = AuthStore();
-    const [session, setSession] = useState<Session | null>(null);
-
-    useEffect(() => {
-        setCurrentUser().then()
-    }, []);
-
-    const setCurrentUser = async () => {
-        setSession(null);
-    };
-
-
-    const onLogin = async (data: loginFormModel) => {
-        console.log(data);
-        await login()/*
-
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });*/
-/*        doAutenticate<AuthenticationResponse>()
-            .then((response: AuthenticationResponse) => {
-                console.log(response);
-                grantAccess({token: response.access_token, isAuthenticated: true});
-                router.push("/tracks");
-                /!*getUserProfile()
-                    .then(response => {
-                        console.log(response);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });*!/
-            })
-            .catch(error => {
-                console.log(error);
-            });*/
-    };
-
     return (
         <div className="login_layout">
             <div className="login_layout_card w-full h-auto rounded-xl flex flex-col items-center">

@@ -1,4 +1,3 @@
-import AuthStore from '@/app/auth/store/auth.store';
 import {ConfigUrls} from '@/config/urls';
 import z from 'zod';
 
@@ -14,8 +13,6 @@ export const getTrackData = async <T>(id: string, token: string) => {
         });
         console.log(token);
         const uri = ConfigUrls.album.all;
-        console.log(uri);
-        console.log(id);
         const response = await fetch(
             uri, {
                 method: 'GET',

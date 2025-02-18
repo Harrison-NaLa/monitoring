@@ -11,7 +11,7 @@ export interface UserMenuProps {
     data?: User;
 }
 
-const UserMenu = ({tooltip, fallback, image, data}: UserMenuProps) => {
+const UserMenu = ({fallback, image, data}: UserMenuProps) => {
     if (image) {
         return (
             <Tooltip.Provider>

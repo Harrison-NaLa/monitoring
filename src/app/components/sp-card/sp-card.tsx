@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import {Button, Text} from '@radix-ui/themes';
 import {Play} from 'lucide-react';
-import {SpotifyTrackItem} from '@/types';
 
 const SpotifyCard = ({name, url}: { name: string, url: string }) => {
     return (
