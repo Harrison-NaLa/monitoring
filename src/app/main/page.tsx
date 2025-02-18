@@ -1,13 +1,18 @@
 import React from 'react';
-import Tracks from '@/app/main/tracks/page';
-import MainContainer from '@/app/components/main-container';
+import BodyContainer from '@/app/components/body-container';
+import NoActiveSession from '@/app/components/no-active-session';
+import {auth } from '@/auth';
+import Tracks from '@/app/tracks/music-control-list';
 
 
-const MainPage = () => {
+const MainPage = async () => {
+    const session = await auth();
+
     return (
-        <MainContainer>
-            <Tracks/>
-        </MainContainer>
+        <BodyContainer>
+            <NoActiveSession />
+            {session && <Tracks/>}
+        </BodyContainer>
     )
 }
 

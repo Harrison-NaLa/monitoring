@@ -1,26 +1,27 @@
 'use client';
 import {Avatar} from '@radix-ui/themes';
-//import {Tooltip} from 'radix-ui';
 import React from 'react';
 import * as Tooltip from '@radix-ui/react-tooltip';
+import {User} from 'next-auth';
 
 export interface UserMenuProps {
     tooltip?: string;
     fallback: string;
     image?: string;
+    data?: User;
 }
 
-const UserMenu = ({tooltip, fallback, image}: UserMenuProps) => {
+const UserMenu = ({tooltip, fallback, image, data}: UserMenuProps) => {
     if (image) {
         return (
             <Tooltip.Provider>
                 <Tooltip.Root delayDuration={0}>
                     <Tooltip.Trigger>
-                        <Avatar size="4" src={image ?? ''} fallback={fallback}/>
+                        <Avatar size="3" radius='full' src={image ?? ''} fallback={fallback}/>
                     </Tooltip.Trigger>
                     <Tooltip.Portal>
                         <Tooltip.Content className="TooltipContent" sideOffset={5}>
-                            {tooltip}
+                            {data?.name}
                             <Tooltip.Arrow offset={5}/>
                         </Tooltip.Content>
                     </Tooltip.Portal>
@@ -37,7 +38,7 @@ const UserMenu = ({tooltip, fallback, image}: UserMenuProps) => {
                 </Tooltip.Trigger>
                 <Tooltip.Portal>
                     <Tooltip.Content className="tooltipContent" sideOffset={5}>
-                        {tooltip}
+                        {data?.name}
                         <Tooltip.Arrow/>
                     </Tooltip.Content>
                 </Tooltip.Portal>

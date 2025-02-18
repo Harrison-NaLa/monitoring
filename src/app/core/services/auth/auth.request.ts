@@ -27,8 +27,6 @@ export const getUserProfile = <T>() => {
     const headers: HeadersInit = new Headers();
     headers.set('Content-Type', 'application/json');
     //headers.set('Authorization', `Bearer ${accessToken}`);
-    console.log(headers.keys());
-    console.log(headers.values());
     const options: RequestInit = {
         method: 'GET',
         body: null

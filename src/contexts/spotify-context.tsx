@@ -1,11 +1,12 @@
 'use client';
-import {TopArtistsInterface, TopTracksInterface} from '../../types';
-import React, {createContext, useCallback, useEffect, useMemo, useState} from 'react';
+
+import {SpotifyResponseApi, TopArtistsInterface, TopTracksInterface} from '../../types';
+import {createContext, useCallback, useEffect, useMemo, useState} from 'react';
 import {useSession} from 'next-auth/react';
 import {getUserAccessToken, logout} from '@/actions/_auth';
-import {getCurrentUserTopArtists, getCurrentUserTopTracks } from '@/actions/_spoify';
+import {getCurrentUserTopArtists, getCurrentUserTopTracks} from '@/actions/_spotify';
 
-export type SpotifyContextDataInterface = TopTracksInterface | TopArtistsInterface | object;
+export type SpotifyContextDataInterface = SpotifyResponseApi | TopArtistsInterface | object;
 
 interface SpotifyContextInterface {
     datos: SpotifyContextDataInterface;
@@ -50,10 +51,11 @@ export const SpotifyContextProvider = ({children}: { children: React.ReactNode }
             }
 
             try {
+                console.log({accessToken});
                 const data = filterType === 'tracks'
-                    ? await getCurrentUserTopTracks(accessToken, dateRange)
-                    : await getCurrentUserTopArtists(accessToken, dateRange);
-
+                    ? await getCurrentUserTopTracks(accessToken as string)
+                    : await getCurrentUserTopArtists(accessToken as string, dateRange);
+                console.log({data});
                 if (data && 'items' in data) {
                     setDatos(data);
                 } else {
@@ -61,6 +63,7 @@ export const SpotifyContextProvider = ({children}: { children: React.ReactNode }
                     setDatos({});
                 }
             } catch (fetchError) {
+                console.log({fetchError});
                 console.log(fetchError instanceof Error ? fetchError.message : 'Unknown error');
                 await logout();
             }
@@ -72,7 +75,7 @@ export const SpotifyContextProvider = ({children}: { children: React.ReactNode }
     }, [filterType, status, dateRange]);
 
     useEffect(() => {
-        fetchDatos().then();
+        fetchDatos();
     }, [fetchDatos]);
 
     const contextValue = useMemo(() => ({

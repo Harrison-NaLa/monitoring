@@ -19,3 +19,7 @@
         transition: all .3s;
     }
 }
+
+aside {
+    height: calc(100vh - 90px);
+}
